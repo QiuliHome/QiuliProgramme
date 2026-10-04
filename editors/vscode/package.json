@@ -1,0 +1,43 @@
+{
+  "name": "qiuli-language",
+  "displayName": "Qiuli (.ql)",
+  "description": "Qiuli 语言语法高亮与编辑支持（中文关键字脚本语言）",
+  "version": "1.0.0",
+  "publisher": "qiuli",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "qiuli",
+        "aliases": [
+          "Qiuli",
+          "qiuli",
+          "秋黎"
+        ],
+        "extensions": [
+          ".ql"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "qiuli",
+        "scopeName": "source.qiuli",
+        "path": "./syntaxes/qiuli.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "qiuli",
+        "path": "./snippets.json"
+      }
+    ]
+  }
+}

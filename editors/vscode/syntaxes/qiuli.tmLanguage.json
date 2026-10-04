@@ -1,0 +1,175 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Qiuli",
+  "scopeName": "source.qiuli",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#numbers" },
+    { "include": "#keywords-control" },
+    { "include": "#keywords-decl" },
+    { "include": "#constants" },
+    { "include": "#special-methods" },
+    { "include": "#functions" },
+    { "include": "#classes" },
+    { "include": "#operators" },
+    { "include": "#punctuation" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.qiuli",
+          "begin": "#",
+          "end": "$"
+        },
+        {
+          "name": "comment.block.qiuli",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.qiuli",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [{ "include": "#interpolation" }]
+        },
+        {
+          "name": "string.quoted.double.qiuli",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "name": "constant.character.escape.qiuli", "match": "\\\\." },
+            { "include": "#interpolation" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.qiuli",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "name": "constant.character.escape.qiuli", "match": "\\\\." }
+          ]
+        }
+      ]
+    },
+    "interpolation": {
+      "patterns": [
+        {
+          "name": "meta.interpolation.qiuli",
+          "begin": "\\$\\{",
+          "end": "\\}",
+          "beginCaptures": { "0": { "name": "punctuation.section.interpolation.begin.qiuli" } },
+          "endCaptures": { "0": { "name": "punctuation.section.interpolation.end.qiuli" } },
+          "patterns": [
+            { "include": "#numbers" },
+            { "include": "#strings" },
+            { "include": "#keywords-control" },
+            { "include": "#constants" },
+            { "include": "#functions" },
+            { "include": "#operators" }
+          ]
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.hex.qiuli",
+          "match": "\\b0[xX][0-9a-fA-F_]+\\b"
+        },
+        {
+          "name": "constant.numeric.binary.qiuli",
+          "match": "\\b0[bB][01_]+\\b"
+        },
+        {
+          "name": "constant.numeric.octal.qiuli",
+          "match": "\\b0[oO][0-7_]+\\b"
+        },
+        {
+          "name": "constant.numeric.float.qiuli",
+          "match": "\\b[0-9][0-9_]*(\\.[0-9_]+)?([eE][+-]?[0-9]+)?\\b"
+        }
+      ]
+    },
+    "keywords-control": {
+      "name": "keyword.control.qiuli",
+      "match": "\\b(如果|又如果|否则如果|否则|当|遍历|于|在|中断|继续|返回|匹配|情形|默认|尝试|捕获|最终|抛出|且|或|非|if|elif|elseif|else|while|for|in|break|continue|return|match|case|default|try|catch|finally|throw|and|or|not)\\b"
+    },
+    "keywords-decl": {
+      "name": "keyword.declaration.qiuli",
+      "match": "\\b(让|常量|函数|方法|静态|类|构造|继承|导入|作为|从|导出|自身|父|let|var|const|fn|func|function|method|static|class|init|extends|import|as|from|export|self|this|super)\\b"
+    },
+    "constants": {
+      "name": "constant.language.qiuli",
+      "match": "\\b(真|假|空|空值|true|false|nil|null|none)\\b"
+    },
+    "special-methods": {
+      "name": "support.function.magic.qiuli",
+      "match": "__[\\u4e00-\\u9fff_a-zA-Z]+__"
+    },
+    "functions": {
+      "patterns": [
+        {
+          "match": "\\b([A-Za-z_\\u4e00-\\u9fff][A-Za-z0-9_\\u4e00-\\u9fff]*)\\s*(\\()",
+          "captures": {
+            "1": { "name": "entity.name.function.qiuli" },
+            "2": { "name": "punctuation.definition.parameters.begin.qiuli" }
+          }
+        },
+        {
+          "name": "entity.name.function.declaration.qiuli",
+          "match": "(?<=函数\\s)\\s*[A-Za-z_\\u4e00-\\u9fff][A-Za-z0-9_\\u4e00-\\u9fff]*"
+        }
+      ]
+    },
+    "classes": {
+      "name": "entity.name.type.qiuli",
+      "match": "(?<=类\\s)\\s*[A-Za-z_\\u4e00-\\u9fff][A-Za-z0-9_\\u4e00-\\u9fff]*"
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.qiuli",
+          "match": "\\*\\*|//|[-+*/%]"
+        },
+        {
+          "name": "keyword.operator.comparison.qiuli",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.logical.qiuli",
+          "match": "&&|\\|\\||\\?\\?"
+        },
+        {
+          "name": "keyword.operator.assignment.qiuli",
+          "match": "(\\*\\*|//|[-+*/%])?=(?!=)"
+        },
+        {
+          "name": "keyword.operator.other.qiuli",
+          "match": "=>|\\|>|\\.\\.|\\.\\.<|\\?:|:"
+        }
+      ]
+    },
+    "punctuation": {
+      "patterns": [
+        {
+          "name": "punctuation.definition.parameters.end.qiuli",
+          "match": "\\)"
+        },
+        {
+          "name": "meta.bracket.qiuli",
+          "match": "[{}\\[\\]]"
+        },
+        {
+          "name": "punctuation.separator.qiuli",
+          "match": "[,;]"
+        }
+      ]
+    }
+  }
+}
